@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Empleados</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+  <a th:href="@{/}" class="btn btn-primary">
+    <i class="fas fa-home"></i> Inicio
+  </a>
+  <h1>Empleados</h1>
+  <a th:href="@{/empleados/nuevo}" class="btn btn-success mb-3">Nuevo Empleado</a>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>No. Empleado</th>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Usuario</th>
+      <th>Correo</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="empleado : ${empleados}">
+      <td th:text="${empleado.noEmpleado}"></td>
+      <td th:text="${empleado.nombre}"></td>
+      <td th:text="${empleado.apellido1} + ' ' + ${empleado.apellido2}"></td>
+      <td th:text="${empleado.usuario}"></td>
+      <td th:text="${empleado.correo}"></td>
+      <td>
+        <a th:href="@{/empleados/editar/{id}(id=${empleado.noEmpleado})}" class="btn btn-warning btn-sm">Editar</a>
+        <a th:href="@{/empleados/eliminar/{id}(id=${empleado.noEmpleado})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar empleado?')">Eliminar</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
