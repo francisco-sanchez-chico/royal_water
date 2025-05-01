@@ -1,6 +1,8 @@
 package com.app.royal.royal.entidades;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -15,19 +17,25 @@ public class Movimiento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMovimiento;
 
+    @NotNull(message = "El tipo de movimiento es obligatorio")
     @Enumerated(EnumType.STRING)
-    private TipoMovimiento tipo; // Entrada o Salida
+    private TipoMovimiento tipo;
 
+    @NotNull(message = "La cantidad es obligatoria")
+    @Min(value = 1, message = "La cantidad debe ser al menos 1")
     private Integer cantidad;
 
+    @NotNull(message = "La fecha es obligatoria")
     private LocalDateTime fecha;
 
     private String motivo;
 
+    @NotNull(message = "Debe indicar un producto")
     @ManyToOne
     @JoinColumn(name = "id_producto", nullable = false)
     private Producto producto;
 
+    @NotNull(message = "Debe indicar un usuario")
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;

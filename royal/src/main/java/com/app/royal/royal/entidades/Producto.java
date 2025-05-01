@@ -2,6 +2,9 @@ package com.app.royal.royal.entidades;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -16,17 +19,22 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProducto;
 
+    @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
 
+    @NotBlank(message = "La descripción es obligatoria")
     private String descripcion;
 
+    @NotNull(message = "La cantidad actual es obligatoria")
+    @Min(value = 0, message = "La cantidad no puede ser negativa")
     private Integer cantidadActual;
 
+    @NotNull(message = "La fecha de ingreso es obligatoria")
     private LocalDate fechaIngreso;
 
+    @NotNull(message = "Debe seleccionar una categoría")
     @ManyToOne
     @JoinColumn(name = "id_categoria", nullable = false)
-    @JsonIgnoreProperties("productos")
     private Categoria categoria;
 
     public Long getIdProducto() {
