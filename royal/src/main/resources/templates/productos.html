@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión de Productos</title>
+</head>
+<body>
+
+<h2>Lista de Productos</h2>
+
+<table border="1">
+  <tr>
+    <th>Nombre</th>
+    <th>Descripción</th>
+    <th>Cantidad</th>
+    <th>Fecha Ingreso</th>
+    <th>Categoría</th>
+    <th>Stock mínimo</th>
+  </tr>
+  <tr th:each="p : ${productos}">
+    <td th:text="${p.nombre}"></td>
+    <td th:text="${p.descripcion}"></td>
+    <td th:text="${p.cantidadActual}"></td>
+    <td th:text="${p.fechaIngreso}"></td>
+    <td th:text="${p.categoria.nombre}"></td>
+    <td th:text="${p.stockMinimo}"></td>
+  </tr>
+</table>
+
+<h2>Registrar nuevo producto</h2>
+
+<form th:action="@{/productos}" method="post">
+  <label>Nombre:</label>
+  <input type="text" name="nombre" required /><br>
+
+  <label>Descripción:</label>
+  <input type="text" name="descripcion" required /><br>
+
+  <label>Cantidad actual:</label>
+  <input type="number" name="cantidadActual" required /><br>
+
+  <label>Fecha de ingreso:</label>
+  <input type="date" name="fechaIngreso" required /><br>
+
+  <label>Categoría:</label>
+  <select name="categoria.idCategoria">
+    <option th:each="c : ${categorias}" th:value="${c.idCategoria}" th:text="${c.nombre}"></option>
+  </select><br>
+
+  <label>Stock mínimo:</label>
+  <input type="number" name="stockMinimo" required /><br>
+
+  <button type="submit">Guardar</button>
+</form>
+
+</body>
+</html>

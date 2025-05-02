@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Royal Water</title>
+</head>
+<body>
+
+<h2>Bienvenido al sistema de inventario</h2>
+
+<!-- Sección para ADMINISTRADOR -->
+<div sec:authorize="hasAuthority('ADMINISTRADOR')">
+  <h3>Opciones para Administrador</h3>
+  <ul>
+    <li><a th:href="@{/api/usuarios}">Gestión de usuarios</a></li>
+    <li><a th:href="@{/productos}">Gestión de productos</a></li>
+    <li><a th:href="@{/api/categorias}">Gestión de categorías</a></li>
+    <li><a th:href="@{/api/movimientos}">Registrar movimientos</a></li>
+    <li><a th:href="@{/api/defectos}">Reportar defectos</a></li>
+    <li><a th:href="@{/api/productos/reporte/pdf}">Reporte PDF de inventario</a></li>
+    <li><a th:href="@{/api/movimientos/reporte/pdf}">Reporte PDF de movimientos</a></li>
+    <li><a th:href="@{/api/defectos/reporte/pdf?desde=2025-04-20&hasta=2025-04-28}">Reporte de defectos por fecha</a></li>
+    <li><a th:href="@{/api/movimientos/reporte/ventas/pdf}">Reporte de ventas (PDF)</a></li>
+    <li><a th:href="@{/api/productos/alerta-stock}">Ver productos con stock bajo</a></li>
+  </ul>
+</div>
+
+<!-- Sección para EMPLEADO -->
+<div sec:authorize="hasAuthority('EMPLEADO')">
+  <h3>Opciones para Empleado</h3>
+  <ul>
+    <li><a th:href="@{/api/productos}">Ver productos</a></li>
+    <li><a th:href="@{/api/movimientos}">Registrar movimientos</a></li>
+    <li><a th:href="@{/api/defectos}">Reportar defectos</a></li>
+    <li><a th:href="@{/api/productos/reporte/pdf}">Reporte PDF de inventario</a></li>
+    <li><a th:href="@{/api/movimientos/reporte/pdf}">Reporte PDF de movimientos</a></li>
+    <li><a th:href="@{/api/productos/alerta-stock}">Ver productos con stock bajo</a></li>
+  </ul>
+</div>
+
+<!-- Botón de logout -->
+<form th:action="@{/logout}" method="post">
+  <button type="submit">Cerrar sesión</button>
+</form>
+
+</body>
+</html>
